@@ -3,7 +3,8 @@ package VMS;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLOutput;
+//import java.sql.SQLOutput;
+import java.sql.*;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,51 +14,61 @@ import java.util.Scanner;
 
 public class VotingSystem 
 {
+	static String c, c1;
 	static Scanner sc = new Scanner(System.in);
 	
 	public static void main(String[] args) throws Exception
 	{
 		VotingSystem vs = new VotingSystem();
-		System.out.println("\n \t 1. Add Voter Details \n \t 2. Add Candidate Details \n \t 3.Start Election \n \t *Enter your choice");
-		int c = sc.nextInt();
 		
 		
-		switch(c)
-		{
-			case 1:;
-			
-			{
-					
-				vs.Voter();
-				System.out.println("*DO YOU WANT TO ADD MORE VOTER DETAILS(Y/N)*");
-			
-				String vd = sc.next();
-				while(vd.equals("Y"))
-				{
-					vs.Voter();
-					
-					vs.Candidate();
-					continue;
-				}
-			
-			}
-			break;
-			
-			case 2:
-			{
-				vs.Candidate();
-			}
-			break;
-			
-			case 3:
-			{
-				vs.StartElection();
-			}
-			
-		}
-	
+//		do
+//		{
+//			System.out.println("**********Add Voter Details**********");
+//			vs.Voter();
+//			
+//			System.out.println("*** Do You Want Add Voter Details(Y/N) ***");
+//			c = sc.next().toUpperCase();
+//			
+//			  if(c.equals("Y"))
+//			  {
+//				  continue;
+//			  }
+//			  else
+//			  {
+//				  System.out.println("********** Add Candidate Details **********");
+//				  vs.Candidate();
+//				  
+//				  System.out.println("*** Do You Want Add Candidate Details(Y/N) ***");
+//				  c1 = sc.next();
+//				  
+//				  if(c1.equals("Y"))
+//				  {
+//					  continue;
+//				  }
+//				  else
+//				  {
+//					  System.out.println("******* Start Election *******");
+//					  vs.StartElection();
+//					  System.out.println("*** Do You Want To Terminate(Y/N) ***");
+//					  String c2 = sc.next().toUpperCase();
+//					  
+//					  if(c2.equals("N"))
+//					  {
+//						  continue;
+//					  }
+//					  else
+//					  {
+						  vs.Result();
+//						  break;
+//					  }
+//				  }
+//			  }
+//			
+//		}while(true);
 		
 	}
+
 	
 	//*******Voter Details*******
 	
@@ -150,12 +161,12 @@ public class VotingSystem
 					System.out.println(" ");
 					ResultSet candidate = stmt.executeQuery("SELECT ID, Name FROM CandidateDetails");
 					System.out.println("**********Available Candidate**********");
+					System.out.println("   ************ VOTE FOR ***********   ");
 					
 					while(candidate.next())
 					{
 						System.out.println("Candidate ID: "+candidate.getInt("ID") +"   " + "Candidate Name: "+candidate.getString("Name") );	
 						System.out.println(" ");
-						System.out.println("**********VOTE**********");
 						
 					}
 						try
@@ -189,4 +200,28 @@ public class VotingSystem
 		}
 	}
 	
+	void Result() throws ClassNotFoundException, SQLException
+	{
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/VotingSystem" , "root" , "Vaibhav@27");
+		Statement stmt = con.createStatement();
+				
+		ResultSet r = stmt.executeQuery("SELECT ID, Name, Votes FROM CandidateDetails ORDER BY Votes DESC");
+		while(r.next())
+		{
+		System.out.println("Candidate ID: "+r.getInt("ID") +"   " + "Candidate Name: "+r.getString("Name") + " " + "Candidate Votes: "+r.getInt("Votes") );	
+		System.out.println(" ");	
+		}
+		r = stmt.executeQuery("SELECT ID, Name, Votes FROM CandidateDetails ORDER BY Votes DESC");
+		r.next();
+		System.out.println("  ");
+		System.out.println("******************** WINNER ********************");
+		System.out.println("Candidate ID: "+r.getInt("ID") +"   " + "Candidate Name: "+r.getString("Name") + " " + "Candidate Votes: "+r.getInt("Votes"));
+		
+		
+	}
+	
+	
+	
 }
+ 
