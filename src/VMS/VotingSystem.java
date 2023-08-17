@@ -3,8 +3,6 @@ package VMS;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-//import java.sql.SQLOutput;
-import java.sql.*;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,50 +20,50 @@ public class VotingSystem
 		VotingSystem vs = new VotingSystem();
 		
 		
-//		do
-//		{
-//			System.out.println("**********Add Voter Details**********");
-//			vs.Voter();
-//			
-//			System.out.println("*** Do You Want Add Voter Details(Y/N) ***");
-//			c = sc.next().toUpperCase();
-//			
-//			  if(c.equals("Y"))
-//			  {
-//				  continue;
-//			  }
-//			  else
-//			  {
-//				  System.out.println("********** Add Candidate Details **********");
-//				  vs.Candidate();
-//				  
-//				  System.out.println("*** Do You Want Add Candidate Details(Y/N) ***");
-//				  c1 = sc.next();
-//				  
-//				  if(c1.equals("Y"))
-//				  {
-//					  continue;
-//				  }
-//				  else
-//				  {
-//					  System.out.println("******* Start Election *******");
-//					  vs.StartElection();
-//					  System.out.println("*** Do You Want To Terminate(Y/N) ***");
-//					  String c2 = sc.next().toUpperCase();
-//					  
-//					  if(c2.equals("N"))
-//					  {
-//						  continue;
-//					  }
-//					  else
-//					  {
+		do
+		{
+			System.out.println("********** Add Voter Details **********");
+			vs.Voter();
+			
+			System.out.println("*** Do You Want Add Voter Details(Y/N) ***");
+			c = sc.next().toUpperCase();
+			
+			  if(c.equals("Y"))
+			  {
+				  continue;
+			  }
+			  else
+			  {
+				  System.out.println("********** Add Candidate Details **********");
+				  vs.Candidate();
+				  
+				  System.out.println("*** Do You Want Add Candidate Details(Y/N) ***");
+				  c1 = sc.next();
+				  
+				  if(c1.equals("Y"))
+				  {
+					  continue;
+				  }
+				  else
+				  {
+					  System.out.println("******* Start Election *******");
+					  vs.StartElection();
+					  System.out.println("*** Do You Want To Terminate(Y/N) ***");
+					  String c2 = sc.next().toUpperCase();
+					  
+					  if(c2.equals("N"))
+					  {
+						  continue;
+					  }
+					  else
+					  {
 						  vs.Result();
-//						  break;
-//					  }
-//				  }
-//			  }
-//			
-//		}while(true);
+						  break;
+					  }
+				  }
+			  }
+			
+		}while(true);
 		
 	}
 
